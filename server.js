@@ -1,9 +1,9 @@
-var express = require('express')
+var express = require('express');
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://heroku_tn9mhkkw:b1e68ffpula27d8c7gepuepj5v@ds119052.mlab.com:19052/heroku_tn9mhkkw');
 
-var app = express()
+var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -19,7 +19,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-var session = require('express-session')
+var session = require('express-session');
 app.use(session({
     cookie: {maxAge: 1800000},
     resave: false,
@@ -29,12 +29,12 @@ app.use(session({
 
 app.get('/', function (req, res) {
     res.send('Hello World')
-})
+});
 
 app.get('/message/:theMessage', function (req, res) {
     var theMessage = req.params['theMessage'];
     res.send(theMessage);
-})
+});
 
 app.get('/api/session/set/:name/:value',
     setSession);
