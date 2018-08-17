@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://heroku_tn9mhkkw:b1e68ffpula27d8c7gepuepj5v@ds119052.mlab.com:19052/heroku_tn9mhkkw');
-
+// mongoose.connect('mongodb://localhost/webdev-summer2-2018');
 var app = express();
 
 app.use(bodyParser.json());
@@ -11,6 +11,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin",
         "https://course-manager-angular-student.herokuapp.com");
+    res.header("Access-Control-Allow-Origin",
+        "http://localhost:4200");
     res.header("Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods",
@@ -59,5 +61,8 @@ var userService = require('./services/user.service.server');
 userService(app);
 
 require('./services/section.service.server')(app);
+require('./services/quiz.service.server')(app);
+require('./services/question.service.server')(app);
+require('./services/submission.service.server')(app);
 
 app.listen(process.env.PORT || 3000);
